@@ -1,0 +1,35 @@
+{
+  "name": "normalize-words",
+  "version": "1.0.0",
+  "description": "String normalization with removal spaces and/or words.",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "tsc --watch",
+    "prepare": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anselmodev/normalize-words.git"
+  },
+  "keywords": [
+    "word",
+    "words",
+    "normalize",
+    "normalize words",
+    "keyword",
+    "keywords"
+  ],
+  "author": "Anselmo Lima <anselmo.dev@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anselmodev/normalize-words/issues"
+  },
+  "homepage": "https://github.com/anselmodev/normalize-words#readme"
+}
