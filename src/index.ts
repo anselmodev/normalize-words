@@ -1,0 +1,1 @@
+export * as normalizeWords from "./src/normalizeWords";
