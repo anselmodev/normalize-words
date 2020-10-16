@@ -9,7 +9,7 @@ import transformWords from "./utils/transform-words.util";
  * @param {object} options - Normalize Strnig
  * @param {string} options.str - Original String to normalize.
  * @param {TransformType} options.transformType - String normalization type: 'toUpper' | 'toLower' | 'toFirst' | 'toFirstAll'
- * @param {number} options.minLength -Optional  Minimum characters for normalization
+ * @param {number} options.minLength -Optional  Minimum characters for normalization.
  * @param {number} options.maxLength - Optional Maximum characters for normalization.
  * @param {number} options.ignoreByLength - Optional Do not normalize words with size from...
  * @param {string[]} options.removeWords - Optional Remove specific words from the string.
