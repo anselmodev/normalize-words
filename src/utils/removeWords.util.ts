@@ -3,8 +3,13 @@ const removeWords = (wordsToRemove: string[], wordsList: string[]) => {
         wordsList.map((item: string) => item.toLowerCase()),
         wordsToRemove.map((item:string) => item.toLowerCase())
     ];
+    let joinList: any = wordsList.join(' ').toLowerCase();
 
-    return lists[0].filter((word) => lists[1].indexOf(word) < 0);
+    for (let i = 0; i < lists[1].length; i++) {
+        joinList = joinList.replace(new RegExp(wordsToRemove[i], "g"), '');
+    }
+
+    return joinList.split(' ');
 };
 
 export default removeWords;
