@@ -7,6 +7,7 @@ type NormalizeType = {
     maxLength?: number;
     ignoreByLength?: number;
     removeWords?: string[];
+    removeCharacters?: string[];
     applyMethod?: Function;
 };
 
@@ -15,6 +16,7 @@ type NormalizeTypeValidator = {
     transformType: TransformType["type"];
     minLength?: number;
     maxLength?: number;
+    removeCharacters?: string[];
 };
 
 export { NormalizeType, NormalizeTypeValidator };
