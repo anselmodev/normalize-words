@@ -6,7 +6,7 @@ import transformWords from "./utils/transform-words.util";
 
 /**
  * Normalize Words from the String
- * @param {object} options - Normalize Strnig
+ * @param {object} options - Normalize String
  * @param {string} options.str - Original String to normalize.
  * @param {TransformType} options.transformType - String normalization type: 'toUpper' | 'toLower' | 'toFirst' | 'toFirstAll'
  * @param {number} options.minLength -Optional  Minimum characters for normalization.
@@ -23,7 +23,7 @@ export const normalizeWords = (
 
     stringValidator({str, minLength, maxLength, transformType, removeCharacters});
 
-    const ignoreByLen = ignoreByLength || 2;
+    const ignoreByLen = ignoreByLength || 0;
     let resultNormalization: string[] = [];
     let getWords: string[] = str.split(' ');
 
