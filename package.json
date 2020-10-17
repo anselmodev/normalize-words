@@ -1,6 +1,6 @@
 {
   "name": "normalize-words",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "String normalization with removal spaces and/or words.",
   "main": "lib/index.js",
   "module": "esm/index.js",
