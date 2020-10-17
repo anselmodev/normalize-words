@@ -14,6 +14,7 @@
 * Remove words from the string through a list (array).
 * Remove characters from the string through a list (array).
 * Enables user customized functions to complement normalization.
+* Full Typescript compatibility.
 
 #### Examples:
 
@@ -27,7 +28,8 @@
 
 ## How to use
 
-#### Basic Usage ( 'toUpper' | 'toLower' | 'toFirst' | 'toFirstAll' ):
+#### Basic Usage: 
+``` { transformType: 'toUpper' | 'toLower' | 'toFirst' | 'toFirstAll' } ```
 ``` js
 const { normalizeWords } = require('normalize-words');
 
@@ -41,7 +43,23 @@ console.log(normalizeStr);
 
 ```
 
-#### With "Word" Removal:
+* Basic Typescript example:
+``` ts
+import { normalizeWords } from 'normalize-words';
+
+const normalizeStr: string = normalizeWords({
+    str: '  my    cRazY String  ',
+    transformType: 'toFirstAll' // is required
+});
+
+console.log(normalizeStr); 
+// Returns: "My Crazy String"
+
+```
+
+
+#### With "Word" Removal: 
+``` removeWords: string[] ```
 ``` js
 const { normalizeWords } = require('normalize-words');
 
@@ -56,7 +74,8 @@ console.log(normalizeStr);
 
 ```
 
-#### With "Character" Removal:
+#### With "Character" Removal: 
+``` { removeCharacters: string[] } ```
 ``` js
 const { normalizeWords } = require('normalize-words');
 
@@ -70,7 +89,8 @@ console.log(normalizeStr); // Returns: "CRAZ STRING"
 
 ```
 
-#### With "Minimum and/or Maximum Character Length" required to normalize:
+#### With "Minimum and/or Maximum Character Length" required to normalize: 
+``` { minLength: number , maxLength: number }```
 ``` js
 const { normalizeWords } = require('normalize-words');
 
@@ -90,6 +110,7 @@ console.log(normalizeStr);
 ```
 
 #### Do not normalize words with specific length:
+``` { ignoreByLength: number } ```
 ``` js
 const { normalizeWords } = require('normalize-words');
 
@@ -107,6 +128,7 @@ console.log(normalizeStr);
 ```
 
 #### Optional Function to string treatment:
+``` { applyMethod: Function } ```
 ``` js
 const { normalizeWords } = require('normalize-words');
 
@@ -114,26 +136,26 @@ const normalizeStr = normalizeWords({
     str: 'john pallozo',
     transformType: 'toFirstAll',
     applyMethod: (normalizedString) => {
-        return normalizedString + ' - Full-stack Developer.';
+        return normalizedString + ' - Full Stack Developer.';
     }
 });
 
 console.log(normalizeStr); 
-// Returns: "John Pallozo - Full-stack Developer."
+// Returns: "John Pallozo - Full Stack Developer."
 
 // Note: The parameter in the fuction is mandatory because 
 //       it contains the "Normalized String" previously.
 
 ```
 
-- Another example:
-``` js
-const { normalizeWords } = require('normalize-words');
+- Another example with Typescript:
+``` ts
+import { normalizeWords } from 'normalize-words';
 
-const normalizeStr = normalizeWords({
+const normalizeStr: string = normalizeWords({
     str: 'divide string',
     transformType: 'toUpper',
-    applyMethod: (normalizedString) => {
+    applyMethod: (normalizedString: string): string[] => {
         return normalizedString.split('');
     }
 });
