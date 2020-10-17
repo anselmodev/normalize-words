@@ -18,13 +18,14 @@
 
 #### Examples:
 
-* [Basic Usage](#basic-usage--toupper--tolower--tofirst--tofirstall-)
+* [Basic Usage](#basic-usage)
 * [ With "Word" Removal](#with-word-removal)
 * [With "Character" Removal](#with-character-removal)
 * [With Minimum and Maximum Character Length](#with-minimum-andor-maximum-character-length-required-to-normalize)
 * [Do not normalize words with specific length](#do-not-normalize-words-with-specific-length)
 * [Optional Function to string treatment](#optional-function-to-string-treatment)
 * [Complete example of normalization](#complete-example-of-normalization)
+* [Example of normalization with option reuse](#example-of-normalization-with-options-reuse)
 
 ## How to use
 
@@ -183,6 +184,49 @@ const normalizeStr = normalizeWords({
 
 console.log(normalizeStr); 
 // Returns: "John Pallozo - Full Stack Developer."
+
+```
+
+#### Example of normalization with options reuse:
+
+``` js
+const { normalizeWords } = require('normalize-words');
+
+const baseOptions = {
+    transformType: 'toFirst',
+    minLength: 5,
+    maxLength: 30
+};
+
+const options1 = {
+    ...baseOptions,
+    str: 'my CrasY striNG',
+};
+
+const options2 = {
+    ...baseOptions,
+    str: 'john f pallozo!',
+    transformType: 'toFirstAll',
+    removeCharacters: ['!'],
+};
+
+const mergedOptions = {
+    ...options2, 
+    applyMethod: (normalizedString) => {
+        return `I'm ${normalizedString}, Full Stack Developer.`;
+    }
+};
+
+// RESULTS:
+
+const resultNorm1 = normalizeWords( options1 );
+// Returns: "My crazy string"
+
+const resultNorm2 = normalizeWords( options2 );
+// Returns: "John F Pallozo"
+
+const resultMerged = normalizeWords( mergedOptions );
+// Returns: "I'm John F Pallozo, a Full Stack Developer."
 
 ```
 
