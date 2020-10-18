@@ -145,7 +145,7 @@ normalizeWords({
 
 
 #### With "Word" Removal: 
-[`{ removeWords: string[] }`](#removecharacters-string)
+[`{ removeWords: string[] }`](#removewords-string)
 ``` js
 const { normalizeWords } = require('normalize-words');
 
