@@ -7,7 +7,7 @@
 ## Features
 
 * Automatic removal of spaces and tabs.
-* Normalization of words with options: `"toUpper" = UPPERCASE`, `"toLower" = lowercase`, `"toFirst" = Uppercase the first letter of the string`, `"toFirstAll" = First letter of all capitalized words`.
+* Normalization of words with options: `UPPERCASE`, `lowercase`, `Uppercase the first letter of the string`, `First letter of all capitalized words`.
 * Set the minimum string length to normalization.
 * Set the maximum string size to normalization.
 * Do not normalize words with specific length.
@@ -16,30 +16,116 @@
 * Enables user customized functions to complement normalization.
 * Full Typescript compatibility.
 
+<br>
+
+## API
+#### Install with NPM or YARN:
+```shell script
+$ npm i normalize-words
+```
+or
+```shell script
+$ yarn add normalize-words
+```
+
+#### Function
+* [`normalizeWords()`](#function-normalization)
+<br><br>
+
+#### Options {object}
+* [`str`](#str-string)
+* [`transformType`](#transformtype-toupper--tolower--tofirst--tofirstall)
+* [`minLength`](#minlength-number)
+* [`maxLength`](#maxlength-number)
+* [`ignoreByLength`](#ignorebylength-number)
+* [`removeWords`](#removewords-string)
+* [`removeCharacters`](#removecharacters-string)
+* [`applyMethod`](#applymethod-function)
+
+## Function Normalization
+### `normalizeWords(): string`
+*Returns the normalized string.*
+
+String normalization with removal spaces and/or words. <br>
+This function requires an object with the properties for normalizing the string. <br>
+
+```js
+normalizeWords({
+  str: 'my cRazY String',
+  transformType: 'toFirst'
+});
+```
+
+## Options
+### `str: string`
+Original String to normalize. <br>
+This property is mandatory for normalization. <br><br>
+
+### `transformType: 'toUpper' | 'toLower' | 'toFirst' | 'toFirstAll'`
+This property is mandatory for type of normalization. <br><br>
+
+### `minLength: number`
+*(Optional)* <br>
+
+Minimum of characters required for normalization. <br><br>
+
+### `maxLength: number`
+*(Optional)* <br>
+
+Maximum character limit accepted for normalization. <br><br>
+
+### `ignoreByLength: number`
+*(Optional)* <br>
+
+Do not normalize words with a specific length. <br><br>
+
+### `removeWords: string[]`
+*(Optional)* <br>
+
+Removes specific words from the string based on the array list. <br>
+> **_NOTE:_**   Words list is not case sensitive.
+
+<br>
+
+### `removeCharacters: string[]`
+*(Optional)* <br>
+
+Remove specific characters from the string based on the array list. <br>
+> **_NOTE:_**   Words list is not case sensitive. Only one letter per index is allowed.
+
+<br>
+
+### `applyMethod: Function`
+*(Optional)* <br>
+
+Any function to perform after normalizing the string. <br>
+
+<br>
+
+## How to use
 #### Examples:
 
 * [Basic Usage](#basic-usage)
 * [ With "Word" Removal](#with-word-removal)
 * [With "Character" Removal](#with-character-removal)
-* [With Minimum and Maximum Character Length](#with-minimum-andor-maximum-character-length-required-to-normalize)
+* [With Minimum and Maximum Character Length](#with-minimum-and-maximum-character-length-to-normalize)
 * [Do not normalize words with specific length](#do-not-normalize-words-with-specific-length)
 * [Optional Function to string treatment](#optional-function-to-string-treatment)
 * [Complete example of normalization](#complete-example-of-normalization)
 * [Example of normalization with option reuse](#example-of-normalization-with-options-reuse)
 
-## How to use
+<br>
 
 #### Basic Usage: 
-``` { transformType: 'toUpper' | 'toLower' | 'toFirst' | 'toFirstAll' } ```
+[`{ transformType: 'toUpper' | 'toLower' | 'toFirst' | 'toFirstAll' }`](#transformtype-toupper--tolower--tofirst--tofirstall)
 ``` js
 const { normalizeWords } = require('normalize-words');
 
-const normalizeStr = normalizeWords({
+normalizeWords({
     str: '  my    cRazY String  ',
-    transformType: 'toUpper' // is required
+    transformType: 'toUpper'
 });
 
-console.log(normalizeStr); 
 // Returns: "MY CRAZY STRING"
 
 ```
@@ -48,92 +134,85 @@ console.log(normalizeStr);
 ``` ts
 import { normalizeWords } from 'normalize-words';
 
-const normalizeStr: string = normalizeWords({
+normalizeWords({
     str: '  my    cRazY String  ',
-    transformType: 'toFirstAll' // is required
+    transformType: 'toFirstAll'
 });
 
-console.log(normalizeStr); 
 // Returns: "My Crazy String"
 
 ```
 
 
 #### With "Word" Removal: 
-``` removeWords: string[] ```
+[`{ removeWords: string[] }`](#removecharacters-string)
 ``` js
 const { normalizeWords } = require('normalize-words');
 
-const normalizeStr = normalizeWords({
+normalizeWords({
     str: '  my    cRazY String  ',
     transformType: 'toUpper',
-    removeWords: ['My'] // words list is not case sensitive
+    removeWords: ['My']
 });
 
-console.log(normalizeStr); 
 // Returns: "CRAZY STRING"
 
 ```
 
 #### With "Character" Removal: 
-``` { removeCharacters: string[] } ```
+[`{ removeCharacters: string[] }`](#removecharacters-string)
 ``` js
 const { normalizeWords } = require('normalize-words');
 
-const normalizeStr = normalizeWords({
-    str: '  my    cRazY String  ',
+normalizeWords({
+    str: '  my    cRazY String  !!',
     transformType: 'toUpper',
-    removeCharacters: ['m', 'Y'] // character list is not case sensitive
+    removeCharacters: ['m', 'Y', '!']
 });
 
-console.log(normalizeStr); // Returns: "CRAZ STRING"
+// Returns: "CRAZ STRING"
 
 ```
 
-#### With "Minimum and/or Maximum Character Length" required to normalize: 
-``` { minLength: number , maxLength: number }```
+#### With "Minimum and Maximum Character Length" to normalize: 
+[`{ minLength: number , maxLength: number }`](#minlength-number)
 ``` js
 const { normalizeWords } = require('normalize-words');
 
-const normalizeStr = normalizeWords({
+normalizeWords({
     str: 'john pallozo',
     transformType: 'toFirstAll',
-    minLength: 5,
-    maxLength: 20
+    minLength: 5, // String less than 5 characters, will return an error.
+    maxLength: 20 // String longer than 20 characters, will return an error.
 });
 
-console.log(normalizeStr); 
 // Returns: "John Pallozo"
-
-// Note: String less than 5 characters, will return an error
-//       String longer than 20 characters, will return an error
 
 ```
 
 #### Do not normalize words with specific length:
-``` { ignoreByLength: number } ```
+[`{ ignoreByLength: number }`](#ignorebylength-number)
 ``` js
 const { normalizeWords } = require('normalize-words');
 
-const normalizeStr = normalizeWords({
+normalizeWords({
     str: 'city of venice is located in italy',
     transformType: 'toFirstAll',
     ignoreByLength: 2
 });
 
-console.log(normalizeStr); 
 // Returns: "City of Venice is Located in Italy"
 
-// Note: The words "from", "is" and "in" have not been normalized
+// Note: The words: "is" and "in" have not been normalized.
 
 ```
 
 #### Optional Function to string treatment:
-``` { applyMethod: Function } ```
+[`{ applyMethod: Function }`](#applymethod-function)
 ``` js
 const { normalizeWords } = require('normalize-words');
 
-const normalizeStr = normalizeWords({
+normalizeWords({
     str: 'john pallozo',
     transformType: 'toFirstAll',
     applyMethod: (normalizedString) => {
@@ -141,10 +220,9 @@ const normalizeStr = normalizeWords({
     }
 });
 
-console.log(normalizeStr); 
 // Returns: "John Pallozo - Full Stack Developer."
 
-// Note: The parameter in the fuction is mandatory because 
+// Note: The parameter "normalizedString" in the fuction is mandatory because 
 //       it contains the "Normalized String" previously.
 
 ```
@@ -153,7 +231,7 @@ console.log(normalizeStr);
 ``` ts
 import { normalizeWords } from 'normalize-words';
 
-const normalizeStr: string = normalizeWords({
+normalizeWords({
     str: 'divide string',
     transformType: 'toUpper',
     applyMethod: (normalizedString: string): string[] => {
@@ -161,15 +239,14 @@ const normalizeStr: string = normalizeWords({
     }
 });
 
-console.log(normalizeStr); 
-// Returns: [ 'D', 'I', 'V', 'I', 'D', 'E', ' ', 'S', 'T', 'R', 'I', 'N']
+// Returns: [ 'D', 'I', 'V', 'I', 'D', 'E', ' ', 'S', 'T', 'R', 'I', 'N', 'G']
 ```
 
 #### Complete example of normalization:
 ``` js
 const { normalizeWords } = require('normalize-words');
 
-const normalizeStr = normalizeWords({
+normalizeWords({
     str: '@joHN   paLLozO!    any word!!',
     transformType: 'toFirstAll',
     removeWords: ['any', 'word'],
@@ -177,12 +254,11 @@ const normalizeStr = normalizeWords({
     minLength: 5,
     maxLength: 30,
     ignoreByLength: 2,
-    applyMethod: (normalizedString) => {
+    applyMethod: (normalizedString: string): string => {
         return normalizedString + ' - Full Stack Developer.';
     }
 });
 
-console.log(normalizeStr); 
 // Returns: "John Pallozo - Full Stack Developer."
 
 ```
@@ -195,7 +271,8 @@ const { normalizeWords } = require('normalize-words');
 const baseOptions = {
     transformType: 'toFirst',
     minLength: 5,
-    maxLength: 30
+    maxLength: 30,
+    ignoreByLength: 2
 };
 
 const options1 = {
@@ -219,14 +296,14 @@ const mergedOptions = {
 
 // RESULTS:
 
-const resultNorm1 = normalizeWords( options1 );
+normalizeWords( options1 );
 // Returns: "My crazy string"
 
-const resultNorm2 = normalizeWords( options2 );
+normalizeWords( options2 );
 // Returns: "John F Pallozo"
 
-const resultMerged = normalizeWords( mergedOptions );
-// Returns: "I'm John F Pallozo, a Full Stack Developer."
+normalizeWords( mergedOptions );
+// Returns: "I'm John F Pallozo, Full Stack Developer."
 
 ```
 
